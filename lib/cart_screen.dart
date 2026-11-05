@@ -22,8 +22,7 @@ class CartScreen extends StatelessWidget {
       body: Column(
         children: [
           Expanded(
-            // Consumer gives us `cart` right in the builder,
-            // so no watch/read is needed inside.
+
             child: Consumer<Cart>(
               builder: (context, cart, _) {
                 if (cart.items.isEmpty) {
@@ -55,7 +54,6 @@ class CartScreen extends StatelessWidget {
               },
             ),
           ),
-          // The `child` is built ONCE and is not rebuilt on every notify.
           Consumer<Cart>(
             child: const Row(
               mainAxisSize: MainAxisSize.min,
@@ -85,8 +83,6 @@ class CartScreen extends StatelessWidget {
   }
 }
 
-// The QUESTION lives in the widget (dialog),
-// the CLEARING lives in the model (cart.clear()).
 Future<void> _confirmClear(BuildContext context) async {
   final ok = await showDialog<bool>(
     context: context,
@@ -106,7 +102,6 @@ Future<void> _confirmClear(BuildContext context) async {
     ),
   );
 
-  // After an `await` the screen may be gone, so check `mounted` first.
   if (ok == true && context.mounted) {
     context.read<Cart>().clear();
   }

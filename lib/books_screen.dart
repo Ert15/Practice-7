@@ -5,8 +5,6 @@ import 'cart_badge.dart';
 import 'models/book.dart';
 import 'models/cart.dart';
 
-// The search text is "ephemeral/lifted" state: it lives in this State,
-// because only the search field and the list below it care about it.
 class BooksScreen extends StatefulWidget {
   const BooksScreen({super.key});
 
@@ -41,7 +39,6 @@ class _BooksScreenState extends State<BooksScreen> {
   }
 }
 
-// One row = its own widget, so only the rows that need to change are rebuilt.
 class _BookRow extends StatelessWidget {
   const _BookRow({required this.book});
 
@@ -49,7 +46,6 @@ class _BookRow extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    // watch: this is build(), so we subscribe to the cart here.
     final added = context.watch<Cart>().items.contains(book);
 
     return ListTile(
@@ -59,10 +55,7 @@ class _BookRow extends StatelessWidget {
           ? const Text('Added')
           : OutlinedButton(
               onPressed: () {
-                // read: this is a callback, so we only "use" the cart.
                 final ok = context.read<Cart>().add(book);
-                // The model only says true/false. The widget decides
-                // to show a SnackBar.
                 if (ok) {
                   ScaffoldMessenger.of(context).showSnackBar(
                     const SnackBar(

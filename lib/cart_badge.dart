@@ -10,9 +10,6 @@ class CartBadge extends StatelessWidget {
   Widget build(BuildContext context) {
     debugPrint('badge build');
 
-    // select = "rebuild me only when THIS number changes".
-    // For the Level 4 measurement, temporarily swap it for:
-    //   final n = context.watch<Cart>().count;
     final n = context.select<Cart, int>((c) => c.count);
 
     return IconButton(
