@@ -15,8 +15,15 @@ class CartBadge extends StatelessWidget {
     return IconButton(
       onPressed: () => Navigator.of(context).pushNamed('/cart'),
       icon: Badge(
-        label: Text('$n'),
-        child: const Icon(Icons.shopping_cart),
+        label: Text(
+          '$n',
+          style: const TextStyle(
+            color: Colors.black,
+            fontWeight: FontWeight.bold,
+          ),
+        ),
+        backgroundColor: Colors.red,
+        child: const Icon(Icons.shopping_cart, color: Colors.black),
       ),
     );
   }

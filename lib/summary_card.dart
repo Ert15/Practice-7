@@ -17,10 +17,46 @@ class SummaryCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final tiles = <Widget>[
-      ListTile(leading: const Icon(Icons.person), title: Text(name)),
-      ListTile(leading: const Icon(Icons.email), title: Text(email)),
-      ListTile(leading: const Icon(Icons.group), title: Text(group)),
-      ListTile(leading: const Icon(Icons.cake), title: Text(birth)),
+      ListTile(
+        leading: const Icon(Icons.person, color: Colors.black),
+        title: Text(
+          name,
+          style: const TextStyle(
+            color: Colors.black,
+            fontWeight: FontWeight.bold,
+          ),
+        ),
+      ),
+      ListTile(
+        leading: const Icon(Icons.email, color: Colors.black),
+        title: Text(
+          email,
+          style: const TextStyle(
+            color: Colors.black,
+            fontWeight: FontWeight.bold,
+          ),
+        ),
+      ),
+      ListTile(
+        leading: const Icon(Icons.group, color: Colors.black),
+        title: Text(
+          group,
+          style: const TextStyle(
+            color: Colors.black,
+            fontWeight: FontWeight.bold,
+          ),
+        ),
+      ),
+      ListTile(
+        leading: const Icon(Icons.cake, color: Colors.black),
+        title: Text(
+          birth,
+          style: const TextStyle(
+            color: Colors.black,
+            fontWeight: FontWeight.bold,
+          ),
+        ),
+      ),
     ];
 
     return Card(

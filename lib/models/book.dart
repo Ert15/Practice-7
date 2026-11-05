@@ -7,7 +7,7 @@ class Book {
 
   final String title;
   final String author;
-  final int price; // tenge
+  final int price;
 }
 
 const books = [

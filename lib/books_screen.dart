@@ -22,8 +22,14 @@ class _BooksScreenState extends State<BooksScreen> {
         .toList();
 
     return Scaffold(
+      backgroundColor: Colors.yellow.shade100,
       appBar: AppBar(
+        backgroundColor: Colors.yellow,
         title: TextField(
+          style: const TextStyle(
+            color: Colors.black,
+            fontWeight: FontWeight.bold,
+          ),
           decoration: const InputDecoration(
             hintText: 'Search books',
             border: InputBorder.none,
@@ -32,9 +38,7 @@ class _BooksScreenState extends State<BooksScreen> {
         ),
         actions: const [CartBadge()],
       ),
-      body: ListView(
-        children: [for (final b in shown) _BookRow(book: b)],
-      ),
+      body: ListView(children: [for (final b in shown) _BookRow(book: b)]),
     );
   }
 }
@@ -49,23 +53,56 @@ class _BookRow extends StatelessWidget {
     final added = context.watch<Cart>().items.contains(book);
 
     return ListTile(
-      title: Text(book.title),
-      subtitle: Text(book.author),
+      tileColor: Colors.orange.shade200,
+      title: Text(
+        book.title,
+        style: const TextStyle(
+          color: Colors.black,
+          fontWeight: FontWeight.bold,
+        ),
+      ),
+      subtitle: Text(
+        book.author,
+        style: const TextStyle(
+          color: Colors.black,
+          fontWeight: FontWeight.bold,
+        ),
+      ),
       trailing: added
-          ? const Text('Added')
-          : OutlinedButton(
+          ? const Text(
+              'Added',
+              style: TextStyle(
+                color: Colors.black,
+                fontWeight: FontWeight.bold,
+              ),
+            )
+          : ElevatedButton(
+              style: ElevatedButton.styleFrom(
+                backgroundColor: Colors.red,
+                foregroundColor: Colors.black,
+              ),
               onPressed: () {
                 final ok = context.read<Cart>().add(book);
                 if (ok) {
                   ScaffoldMessenger.of(context).showSnackBar(
                     const SnackBar(
-                      content: Text('Added to cart'),
+                      backgroundColor: Colors.orange,
+                      content: Text(
+                        'Added to cart',
+                        style: TextStyle(
+                          color: Colors.black,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
                       duration: Duration(seconds: 1),
                     ),
                   );
                 }
               },
-              child: const Text('Add'),
+              child: const Text(
+                'Add',
+                style: TextStyle(fontWeight: FontWeight.bold),
+              ),
             ),
     );
   }
