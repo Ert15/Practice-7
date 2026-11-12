@@ -83,7 +83,7 @@ class _CountdownBState extends State<CountdownB> {
 
   @override
   void dispose() {
-    _sub.cancel(); // BEFORE super.dispose()
+    _sub.cancel();
     super.dispose();
   }
 
