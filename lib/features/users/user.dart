@@ -56,7 +56,7 @@ class User {
     required this.phone,
     required this.address,
     required this.company,
-    this.website, // the only optional field
+    this.website, 
   });
 
   factory User.draft({
