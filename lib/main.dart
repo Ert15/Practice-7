@@ -1,64 +1,33 @@
-import 'package:flutter/material.dart';
+import 'dart:async';
 
-import 'countdown_screen.dart';
-import 'students_future_screen.dart';
-import 'students_screen.dart';
+import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+
+import 'core/api/api_client.dart';
+import 'features/users/user_repository.dart';
+import 'features/users/users_model.dart';
+import 'features/users/users_screen.dart';
 
 void main() {
-  runApp(const MyApp());
+  runApp(
+    ChangeNotifierProvider(
+      create: (_) {
+        final model = UsersModel(UserRepository(ApiClient()));
+        unawaited(model.load());
+        return model;
+      },
+      child: const App(),
+    ),
+  );
 }
 
-class MyApp extends StatelessWidget {
-  const MyApp({super.key});
+class App extends StatelessWidget {
+  const App({super.key});
 
   @override
-  Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'students_async',
-      theme: ThemeData(colorSchemeSeed: Colors.indigo),
-      home: const HomeScreen(),
-    );
-  }
-}
-
-class HomeScreen extends StatelessWidget {
-  const HomeScreen({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(title: const Text('Practice 10')),
-      body: const Center(
-        child: Column(
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            OpenButton(label: 'By hand', screen: StudentsScreen()),
-            OpenButton(label: 'FutureBuilder', screen: StudentsFutureScreen()),
-            OpenButton(label: 'Countdown', screen: CountdownScreen()),
-          ],
-        ),
-      ),
-    );
-  }
-}
-
-class OpenButton extends StatelessWidget {
-  const OpenButton({super.key, required this.label, required this.screen});
-
-  final String label;
-  final Widget screen;
-
-  @override
-  Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.all(6),
-      child: FilledButton(
-        onPressed: () => Navigator.push(
-          context,
-          MaterialPageRoute<void>(builder: (_) => screen),
-        ),
-        child: Text(label),
-      ),
-    );
-  }
+  Widget build(BuildContext context) => MaterialApp(
+        title: 'Users API',
+        theme: ThemeData(colorSchemeSeed: Colors.indigo, useMaterial3: true),
+        home: const UsersScreen(),
+      );
 }
