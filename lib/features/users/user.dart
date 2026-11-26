@@ -5,14 +5,14 @@ class Geo {
   final double lng;
 
   factory Geo.fromJson(Map<String, dynamic> json) => Geo(
-        lat: double.parse(json['lat'] as String),
-        lng: double.parse(json['lng'] as String),
-      );
+    lat: double.parse(json['lat'] as String),
+    lng: double.parse(json['lng'] as String),
+  );
 
   Map<String, dynamic> toJson() => {
-        'lat': lat.toString(),
-        'lng': lng.toString(),
-      };
+    'lat': lat.toString(),
+    'lng': lng.toString(),
+  };
 }
 
 class Address {
@@ -31,20 +31,20 @@ class Address {
   final Geo geo;
 
   factory Address.fromJson(Map<String, dynamic> json) => Address(
-        street: json['street'] as String,
-        suite: json['suite'] as String,
-        city: json['city'] as String,
-        zipcode: json['zipcode'] as String,
-        geo: Geo.fromJson(json['geo'] as Map<String, dynamic>),
-      );
+    street: json['street'] as String,
+    suite: json['suite'] as String,
+    city: json['city'] as String,
+    zipcode: json['zipcode'] as String,
+    geo: Geo.fromJson(json['geo'] as Map<String, dynamic>),
+  );
 
   Map<String, dynamic> toJson() => {
-        'street': street,
-        'suite': suite,
-        'city': city,
-        'zipcode': zipcode,
-        'geo': geo.toJson(),
-      };
+    'street': street,
+    'suite': suite,
+    'city': city,
+    'zipcode': zipcode,
+    'geo': geo.toJson(),
+  };
 }
 
 class User {
@@ -56,29 +56,28 @@ class User {
     required this.phone,
     required this.address,
     required this.company,
-    this.website, 
+    this.website,
   });
 
   factory User.draft({
     required String name,
     required String username,
     required String email,
-  }) =>
-      User(
-        id: 0,
-        name: name,
-        username: username,
-        email: email,
-        phone: '',
-        address: const Address(
-          street: '',
-          suite: '',
-          city: '',
-          zipcode: '',
-          geo: Geo(lat: 0, lng: 0),
-        ),
-        company: (name: '', catchPhrase: ''),
-      );
+  }) => User(
+    id: 0,
+    name: name,
+    username: username,
+    email: email,
+    phone: '',
+    address: const Address(
+      street: '',
+      suite: '',
+      city: '',
+      zipcode: '',
+      geo: Geo(lat: 0, lng: 0),
+    ),
+    company: (name: '', catchPhrase: ''),
+  );
 
   final int id;
   final String name;
@@ -87,7 +86,7 @@ class User {
   final String phone;
   final String? website;
   final Address address;
-  final ({String name, String catchPhrase}) company; // a record
+  final ({String name, String catchPhrase}) company;
 
   String get phoneDigits => phone.replaceAll(RegExp(r'[^0-9+]'), '');
 
@@ -109,18 +108,15 @@ class User {
   }
 
   Map<String, dynamic> toJson() => {
-        'id': id,
-        'name': name,
-        'username': username,
-        'email': email,
-        'address': address.toJson(),
-        'phone': phone,
-        'website': website,
-        'company': {
-          'name': company.name,
-          'catchPhrase': company.catchPhrase,
-        },
-      };
+    'id': id,
+    'name': name,
+    'username': username,
+    'email': email,
+    'address': address.toJson(),
+    'phone': phone,
+    'website': website,
+    'company': {'name': company.name, 'catchPhrase': company.catchPhrase},
+  };
 
   @override
   bool operator ==(Object other) => other is User && other.id == id;

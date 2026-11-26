@@ -37,11 +37,11 @@ class _NewUserScreenState extends State<NewUserScreen> {
   }
 
   String _message(ApiException e) => switch (e) {
-        NoConnectionException() => 'No connection. Try again.',
-        ServerException(:final status) => 'Server error ($status).',
-        BadResponseException() => 'The server answered something unreadable.',
-        NotFoundException() || UnauthorizedException() => 'Request rejected.',
-      };
+    NoConnectionException() => 'No connection. Try again.',
+    ServerException(:final status) => 'Server error ($status).',
+    BadResponseException() => 'The server answered something unreadable.',
+    NotFoundException() || UnauthorizedException() => 'Request rejected.',
+  };
 
   Future<void> _save() async {
     final form = _formKey.currentState;

@@ -12,6 +12,7 @@ class UsersModel extends ChangeNotifier {
   List<User> items = const [];
   ApiException? error;
   bool loading = false;
+  bool fromCache = false;
   bool saving = false;
 
   Future<void> load() async {
@@ -19,7 +20,9 @@ class UsersModel extends ChangeNotifier {
     error = null;
     notifyListeners();
     try {
-      items = await _repo.getAll();
+      final result = await _repo.getAll();
+      items = result.items;
+      fromCache = result.fromCache;
     } on ApiException catch (e) {
       error = e;
     } finally {
@@ -29,12 +32,12 @@ class UsersModel extends ChangeNotifier {
   }
 
   Future<ApiException?> addUser(User draft) async {
-    if (saving) return null; 
+    if (saving) return null;
     saving = true;
     notifyListeners();
     try {
       final created = await _repo.create(draft);
-      items = [created, ...items]; 
+      items = [created, ...items];
       return null;
     } on ApiException catch (e) {
       return e;

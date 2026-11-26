@@ -1,29 +1,22 @@
-// This is a basic Flutter widget test.
-//
-// To perform an interaction with a widget in your test, use the WidgetTester
-// utility in the flutter_test package. For example, you can send tap and scroll
-// gestures. You can also use WidgetTester to find child widgets in the widget
-// tree, read text, and verify that the values of widget properties are correct.
-
 import 'package:flutter_test/flutter_test.dart';
+import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
-import 'package:kbtu_flutter1projek/main.dart';
+import 'package:kbtu_flutter1projek/core/storage/secure_store.dart';
+import 'package:kbtu_flutter1projek/features/auth/auth_model.dart';
+import 'package:kbtu_flutter1projek/features/auth/login_screen.dart';
 
 void main() {
-  testWidgets('Counter increments smoke test', (WidgetTester tester) async {
-    // Build our app and trigger a frame.
-    await tester.pumpWidget(const MyApp());
+  testWidgets('shows the login form', (tester) async {
+    final store = SecureStore();
+    await tester.pumpWidget(
+      ChangeNotifierProvider(
+        create: (_) => AuthModel(store),
+        child: const MaterialApp(home: LoginScreen()),
+      ),
+    );
 
-    // Both counters start at 0: the tap card and the two-way counter.
-    expect(find.text('0'), findsNWidgets(2));
-    expect(find.text('1'), findsNothing);
-
-    // Tap the two-way counter's '+' button and trigger a frame.
-    await tester.tap(find.text('+'));
-    await tester.pump();
-
-    // Verify that our counter has incremented.
-    expect(find.text('0'), findsOneWidget);
-    expect(find.text('1'), findsOneWidget);
+    expect(find.byType(LoginScreen), findsOneWidget);
+    expect(find.byType(TextFormField), findsNWidgets(2));
   });
 }
